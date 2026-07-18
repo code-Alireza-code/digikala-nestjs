@@ -11,7 +11,8 @@
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main"
+    "start:prod": "node dist/main",
+    "commit": "cz"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
@@ -31,6 +32,8 @@
     "@nestjs/schematics": "^11.0.0",
     "@types/express": "^5.0.0",
     "@types/node": "^24.0.0",
+    "commitizen": "^4.3.2",
+    "cz-git": "^1.13.1",
     "globals": "^17.0.0",
     "prettier": "^3.4.2",
     "source-map-support": "^0.5.21",
@@ -38,5 +41,58 @@
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git",
+      "useEmoji": true,
+      "types": [
+        {
+          "value": "feat",
+          "name": "feat: ✨ new feature"
+        },
+        {
+          "value": "fix",
+          "name": "fix: 🐛 bug fix"
+        },
+        {
+          "value": "refactor",
+          "name": "refactor: ♻️ code improvement"
+        },
+        {
+          "value": "perf",
+          "name": "perf: ⚡ performance"
+        },
+        {
+          "value": "test",
+          "name": "test: 🧪 tests"
+        },
+        {
+          "value": "docs",
+          "name": "docs: 📚 documentation"
+        },
+        {
+          "value": "build",
+          "name": "build: 📦 dependencies"
+        },
+        {
+          "value": "ci",
+          "name": "ci: 👷 CI/CD"
+        },
+        {
+          "value": "chore",
+          "name": "chore: 🔧 maintenance"
+        }
+      ],
+      "scopes": [
+        "product",
+        "user",
+        "discount",
+        "cart",
+        "order",
+        "payment",
+        "deps"
+      ]
+    }
   }
 }
