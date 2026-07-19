@@ -18,7 +18,7 @@ export class ProductEntity extends BaseWithCreateDateEntity {
   code: string;
   @Column({ default: 0 })
   count: number;
-  @Column({ enum: ProductType })
+  @Column({ type: "enum", enum: ProductType })
   type: string;
   @Column({ type: "decimal", nullable: true })
   price: number;
