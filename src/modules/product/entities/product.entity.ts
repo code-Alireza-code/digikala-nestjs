@@ -24,7 +24,7 @@ export class ProductEntity extends BaseWithCreateDateEntity {
   price: number;
   @Column({ type: "decimal", nullable: true })
   discount: number;
-  @Column({ default: false })
+  @Column({ type: "boolean", default: false })
   active_discount: boolean;
   @OneToMany(() => ProductColorEntity, (color) => color.product)
   colors: ProductColorEntity[];

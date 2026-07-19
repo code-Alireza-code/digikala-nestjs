@@ -1,6 +1,13 @@
 import { ApiProperty, ApiPropertyOptional, PartialType } from "@nestjs/swagger";
 import { ProductType } from "../enum/type.enum";
-import { IsEnum, IsNumber, IsPositive, Min } from "class-validator";
+import {
+  IsBoolean,
+  IsEnum,
+  IsNumber,
+  IsPositive,
+  Max,
+  Min,
+} from "class-validator";
 import { Type } from "class-transformer";
 
 export class CreateProductDto {
@@ -21,6 +28,8 @@ export class CreateProductDto {
   @IsPositive()
   count: number;
   @ApiProperty({ type: "boolean" })
+  @Type(() => Boolean)
+  @IsBoolean()
   active_discount: boolean;
   @ApiPropertyOptional()
   @Type(() => Number)
@@ -31,6 +40,7 @@ export class CreateProductDto {
   @Type(() => Number)
   @IsNumber()
   @Min(0)
+  @Max(100)
   discount: number;
 }
 export class UpdateProductDto extends PartialType(CreateProductDto) {}
