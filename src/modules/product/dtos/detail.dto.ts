@@ -1,11 +1,22 @@
-import { ApiProperty, PartialType } from "@nestjs/swagger";
+import { Trim } from "@/common/decorators/trim.decorator";
+import {
+  ApiProperty,
+  IntersectionType,
+  PartialType,
+  PickType,
+} from "@nestjs/swagger";
+import { IsString } from "class-validator";
 
 export class AddDetailDto {
   @ApiProperty()
-  prouctId: string;
+  productId: number;
   @ApiProperty()
-  key: number;
+  @Trim()
+  @IsString()
+  key: string;
   @ApiProperty()
-  value: number;
+  @Trim()
+  @IsString()
+  value: string;
 }
 export class UpdateDetailDto extends PartialType(AddDetailDto) {}
