@@ -62,6 +62,12 @@ export class ProductService {
         sizes: true,
         details: true,
       },
+      select: {
+        details: {
+          key: true,
+          value: true,
+        },
+      },
     });
   }
   async findOne(id: number) {
