@@ -1,24 +1,39 @@
-import { ApiProperty, PartialType } from "@nestjs/swagger";
-import { IsBoolean, Min } from "class-validator";
+import { ToBoolean } from "@/common/decorators/toBoolean.decorator";
+import { Trim } from "@/common/decorators/trim.decorator";
+import { ApiProperty, ApiPropertyOptional, PartialType } from "@nestjs/swagger";
+import { Type } from "class-transformer";
+import { IsBoolean, IsNumber, IsOptional, Max, Min } from "class-validator";
 
 export class AddColorDto {
   @ApiProperty()
+  productId: number;
+  @ApiProperty()
+  @Trim()
   color_name: string;
   @ApiProperty()
+  @Trim()
   color_code: string;
   @ApiProperty()
-  @Min(0)
+  @Type(() => Number)
+  @IsNumber()
+  @Min(1)
   count: number;
-  @Min(1)
   @ApiProperty()
+  @Type(() => Number)
+  @IsNumber()
+  @Min(1)
   price: number;
-  @ApiProperty()
+  @ApiPropertyOptional()
+  @IsOptional()
+  @Type(() => Number)
+  @IsNumber()
   @Min(1)
+  @Max(100)
   discount: number;
-  @ApiProperty({ type: "boolean" })
+  @ApiPropertyOptional({ type: "boolean" })
+  @IsOptional()
+  @ToBoolean()
   @IsBoolean()
   active_discount: boolean;
-  @ApiProperty()
-  productId: number;
 }
 export class UpdateColorDto extends PartialType(AddColorDto) {}
