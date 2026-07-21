@@ -10,6 +10,7 @@ import {
   Min,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { ToBoolean } from "@/common/decorators/toBoolean.decorator";
 
 export class CreateProductDto {
   @ApiProperty()
@@ -48,7 +49,7 @@ export class CreateProductDto {
   discount: number;
   @ApiPropertyOptional({ type: "boolean" })
   @IsOptional()
-  @Type(() => Boolean)
+  @ToBoolean()
   @IsBoolean()
   active_discount: boolean;
 }
