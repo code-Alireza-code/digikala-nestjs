@@ -3,4 +3,5 @@ export enum EntityNames {
   ProductColor = "product_color",
   ProductSize = "product_size",
   ProductDetail = "product_detail",
+  Discount = "discount",
 }
