@@ -8,17 +8,17 @@ export class DiscountEntity extends BaseWithCreateDateEntity {
   @Column({ unique: true })
   code: string;
   @Column({ type: "decimal", nullable: true })
-  precent: number;
+  percent: number;
   @Column({ type: "decimal", nullable: true })
   amount: number;
   @Column({ nullable: true })
   limit: number;
   @Column({ type: "int", default: 0 })
   usage: number;
-  @Column({ type: "timestamp" })
+  @Column({ type: "timestamp", nullable: true })
   expires_in: Date;
   @Column({ nullable: true })
   productId: number;
-  @Column({ type: "enum", enum: DiscountType })
-  type: DiscountType;
+  @Column({ type: "enum", enum: DiscountType, default: DiscountType.Cart })
+  type: string;
 }
