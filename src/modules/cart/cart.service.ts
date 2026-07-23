@@ -5,7 +5,7 @@ import {
 } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CartEntity } from "./entities/cart.entity";
-import { DeepPartial, Repository } from "typeorm";
+import { DeepPartial, FindOptionsWhere, Repository } from "typeorm";
 import { AddToCartDto } from "./dtos/cartProduct.dto";
 import { ProductService } from "../product/service/product.service";
 import {
@@ -29,7 +29,11 @@ export class CartService {
   async addProductToCart(cartDto: AddToCartDto) {
     const { productId, sizeId, colorId } = cartDto;
     const product = await this.productService.findOneLean(productId);
-    const existingCart = await this.findOneByProductId(product.id);
+    const existingCart = await this.findExistingProductInCart(
+      product.id,
+      sizeId,
+      colorId,
+    );
     if (sizeId && colorId) {
       throw new BadRequestException(
         BadRequestMessage.SizeIdAndColorIdContradiction,
@@ -97,8 +101,17 @@ export class CartService {
     }
     return { message: PublicMessage.ProductRemovedFromCart };
   }
-  async findOneByProductId(productId: number) {
-    return await this.cartRepository.findOneBy({ productId });
+  async findExistingProductInCart(
+    productId: number,
+    sizeId: number,
+    colorId: number,
+  ) {
+    const where: FindOptionsWhere<CartEntity> = { productId };
+    if (sizeId) where.sizeId = sizeId;
+    if (colorId) where.colorId = colorId;
+    return await this.cartRepository.findOne({
+      where,
+    });
   }
   async checkByProductId(productId: number) {
     const cartProduct = await this.cartRepository.findOneBy({ productId });
