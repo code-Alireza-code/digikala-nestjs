@@ -1,7 +1,8 @@
 import { BaseEntity } from "@/common/abstract/base.entity";
 import { EntityNames } from "@/common/enum/entity-name.enum";
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { ProductEntity } from "./product.entity";
+import { CartEntity } from "@/modules/cart/entities/cart.entitiy";
 
 @Entity(EntityNames.ProductSize)
 export class ProductSizeEntity extends BaseEntity {
@@ -21,4 +22,6 @@ export class ProductSizeEntity extends BaseEntity {
     onDelete: "CASCADE",
   })
   product: ProductEntity;
+  @OneToMany(() => CartEntity, (cart) => cart.size)
+  carts: CartEntity[];
 }
