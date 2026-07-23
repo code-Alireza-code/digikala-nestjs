@@ -26,7 +26,7 @@ export class CartService {
     private productColorService: ProductColorService,
     private productSizeService: ProductSizeService,
   ) {}
-  async addToCart(cartDto: AddToCartDto) {
+  async addProductToCart(cartDto: AddToCartDto) {
     const { productId, sizeId, colorId } = cartDto;
     const product = await this.productService.findOneLean(productId);
     const existingCart = await this.findOneByProductId(product.id);
@@ -87,7 +87,7 @@ export class CartService {
     }
     return { message: PublicMessage.ProductAddedToCart };
   }
-  async removeFromCart(productId: number) {
+  async removeProductFromCart(productId: number) {
     const cartProduct = await this.checkByProductId(productId);
     if (cartProduct.count <= 1) {
       await this.cartRepository.delete({ productId });

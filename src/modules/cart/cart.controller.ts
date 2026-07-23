@@ -17,10 +17,10 @@ export class CartController {
   @Post("/add")
   @StandardFormType()
   addToCart(@Body() cartDto: AddToCartDto) {
-    return this.cartService.addToCart(cartDto);
+    return this.cartService.addProductToCart(cartDto);
   }
   @Delete("/:productId")
   removeFromCart(@Param("productId", ParseIntPipe) id: number) {
-    return this.cartService.removeFromCart(id);
+    return this.cartService.removeProductFromCart(id);
   }
 }
