@@ -34,5 +34,12 @@ import { ProductSizeService } from "./service/product-size.service";
     ProductDetailService,
     ProductSizeService,
   ],
+  exports: [
+    ProductService,
+    ProductColorService,
+    ProductDetailService,
+    ProductSizeService,
+    TypeOrmModule,
+  ],
 })
 export class ProductModule {}

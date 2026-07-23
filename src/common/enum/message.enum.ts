@@ -14,6 +14,7 @@ export enum PublicMessage {
   DiscountCreated = "discount created successfuly !",
   DiscountUpdated = "discount updated successfuly !",
   DiscountDeleted = "discount deleted successfuly !",
+  ProductAddedToCart = "product added to cart successfuly !",
 }
 export enum NotFoundMessage {
   ProductNotFound = "product not found !",
@@ -31,6 +32,13 @@ export enum BadRequestMessage {
   ProductIdRequired = "product id required for a discount with type product",
   ProductIdContradiction = "product id should not exist when discount type is cart !",
   ExpirationDateIsExpired = "expiration date is past, expiration date should be in future !",
+  SizeIdAndColorIdContradiction = "both colorId and sizeId are not allowed !",
+  ProductOutOfStock = "product is out of stock !",
+  ColorIdRequired = "color id is required for a coloring product !",
+  SizeIdRequired = "size id is required for a sizing product !",
+  ProductColorOutOfStock = "this product color is out of stock !",
+  ProductSizeOutOfStock = "this product size is out of stock !",
+  ProductColorAndSizeNotAllowed = "product color or size not allowed for single product !",
 }
 
 export enum ConflictMessage {

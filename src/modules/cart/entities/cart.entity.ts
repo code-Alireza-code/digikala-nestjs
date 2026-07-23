@@ -16,7 +16,7 @@ export class CartEntity extends BaseWithCreateDateEntity {
   colorId: number;
   @Column({ nullable: true })
   discountId: number;
-  @Column({ nullable: true })
+  @Column()
   count: number;
   @ManyToOne(() => ProductEntity, (product) => product.carts, {
     onDelete: "CASCADE",

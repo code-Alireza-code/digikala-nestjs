@@ -2,7 +2,7 @@ import { BaseWithCreateDateEntity } from "@/common/abstract/base.entity";
 import { EntityNames } from "@/common/enum/entity-name.enum";
 import { Column, Entity, OneToMany } from "typeorm";
 import { DiscountType } from "../enum/type.enum";
-import { CartEntity } from "@/modules/cart/entities/cart.entitiy";
+import { CartEntity } from "@/modules/cart/entities/cart.entity";
 
 @Entity(EntityNames.Discount)
 export class DiscountEntity extends BaseWithCreateDateEntity {

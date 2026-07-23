@@ -2,7 +2,7 @@ import { BaseEntity } from "@/common/abstract/base.entity";
 import { EntityNames } from "@/common/enum/entity-name.enum";
 import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { ProductEntity } from "./product.entity";
-import { CartEntity } from "@/modules/cart/entities/cart.entitiy";
+import { CartEntity } from "@/modules/cart/entities/cart.entity";
 
 @Entity(EntityNames.ProductColor)
 export class ProductColorEntity extends BaseEntity {

@@ -5,7 +5,7 @@ import { ProductColorEntity } from "./product-color.entity";
 import { ProductDetailEntity } from "./product-detail.entity";
 import { ProductSizeEntity } from "./product-size.entity";
 import { ProductType } from "../enum/type.enum";
-import { CartEntity } from "@/modules/cart/entities/cart.entitiy";
+import { CartEntity } from "@/modules/cart/entities/cart.entity";
 
 @Entity(EntityNames.Product)
 export class ProductEntity extends BaseWithCreateDateEntity {
