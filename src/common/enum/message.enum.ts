@@ -15,6 +15,7 @@ export enum PublicMessage {
   DiscountUpdated = "discount updated successfuly !",
   DiscountDeleted = "discount deleted successfuly !",
   ProductAddedToCart = "product added to cart successfuly !",
+  ProductRemovedFromCart = "product removed from cart successfuly !",
 }
 export enum NotFoundMessage {
   ProductNotFound = "product not found !",
@@ -22,6 +23,7 @@ export enum NotFoundMessage {
   ProductSizeNotFound = "product size not found !",
   ProductColorNotFound = "product color not found !",
   DiscountNotFound = "discount not found !",
+  ProductNotFoundInCart = "product not found in cart !",
 }
 export enum BadRequestMessage {
   ProductTypeInvalid = "product type is invalid !",

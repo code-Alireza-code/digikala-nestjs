@@ -1,4 +1,11 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Param,
+  ParseIntPipe,
+  Post,
+} from "@nestjs/common";
 import { CartService } from "./cart.service";
 import { StandardFormType } from "@/common/decorators/formType.decorator";
 import { AddToCartDto } from "./dtos/cartProduct.dto";
@@ -11,5 +18,9 @@ export class CartController {
   @StandardFormType()
   addToCart(@Body() cartDto: AddToCartDto) {
     return this.cartService.addToCart(cartDto);
+  }
+  @Delete("/:productId")
+  removeFromCart(@Param("productId", ParseIntPipe) id: number) {
+    return this.cartService.removeFromCart(id);
   }
 }

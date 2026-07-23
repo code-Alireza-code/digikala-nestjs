@@ -1,10 +1,18 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CartEntity } from "./entities/cart.entity";
 import { DeepPartial, Repository } from "typeorm";
 import { AddToCartDto } from "./dtos/cartProduct.dto";
 import { ProductService } from "../product/service/product.service";
-import { BadRequestMessage, PublicMessage } from "@/common/enum/message.enum";
+import {
+  BadRequestMessage,
+  NotFoundMessage,
+  PublicMessage,
+} from "@/common/enum/message.enum";
 import { ProductType } from "../product/enum/type.enum";
 import { ProductColorService } from "../product/service/product-color.service";
 import { ProductSizeService } from "../product/service/product-size.service";
@@ -27,8 +35,10 @@ export class CartService {
         BadRequestMessage.SizeIdAndColorIdContradiction,
       );
     }
-    if(product.type === ProductType.Single && (sizeId || colorId)){
-      throw new BadRequestException(BadRequestMessage.ProductColorAndSizeNotAllowed)
+    if (product.type === ProductType.Single && (sizeId || colorId)) {
+      throw new BadRequestException(
+        BadRequestMessage.ProductColorAndSizeNotAllowed,
+      );
     }
     if (existingCart) {
       switch (product.type) {
@@ -77,8 +87,25 @@ export class CartService {
     }
     return { message: PublicMessage.ProductAddedToCart };
   }
+  async removeFromCart(productId: number) {
+    const cartProduct = await this.checkByProductId(productId);
+    if (cartProduct.count <= 1) {
+      await this.cartRepository.delete({ productId });
+    } else {
+      cartProduct.count -= 1;
+      await this.cartRepository.save(cartProduct);
+    }
+    return { message: PublicMessage.ProductRemovedFromCart };
+  }
   async findOneByProductId(productId: number) {
     return await this.cartRepository.findOneBy({ productId });
+  }
+  async checkByProductId(productId: number) {
+    const cartProduct = await this.cartRepository.findOneBy({ productId });
+    if (!cartProduct) {
+      throw new NotFoundException(NotFoundMessage.ProductNotFoundInCart);
+    }
+    return cartProduct;
   }
   async checkProductColorStock(colorId: number, amount: number) {
     const productColor = await this.productColorService.findOneById(colorId);
