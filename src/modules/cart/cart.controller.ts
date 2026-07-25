@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   ParseIntPipe,
   Post,
@@ -14,7 +15,10 @@ import { AddDiscountToCartDto } from "./dtos/dicount.dto";
 @Controller("cart")
 export class CartController {
   constructor(private readonly cartService: CartService) {}
-
+  @Get()
+  getCart() {
+    return this.cartService.getCart();
+  }
   @Post("/add")
   @StandardFormType()
   addToCart(@Body() cartDto: AddToCartDto) {
