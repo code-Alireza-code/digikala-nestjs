@@ -9,6 +9,7 @@ import {
 import { CartService } from "./cart.service";
 import { StandardFormType } from "@/common/decorators/formType.decorator";
 import { AddToCartDto } from "./dtos/cartProduct.dto";
+import { AddDiscountToCartDto } from "./dtos/dicount.dto";
 
 @Controller("cart")
 export class CartController {
@@ -22,5 +23,10 @@ export class CartController {
   @Delete("/:productId")
   removeFromCart(@Param("productId", ParseIntPipe) id: number) {
     return this.cartService.removeProductFromCart(id);
+  }
+  @Post("/add-discount")
+  @StandardFormType()
+  async addDiscountToCart(@Body() discountDto: AddDiscountToCartDto) {
+    return this.cartService.addDiscountToCart(discountDto);
   }
 }

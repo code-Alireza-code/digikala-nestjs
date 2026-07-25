@@ -16,6 +16,7 @@ export enum PublicMessage {
   DiscountDeleted = "discount deleted successfuly !",
   ProductAddedToCart = "product added to cart successfuly !",
   ProductRemovedFromCart = "product removed from cart successfuly !",
+  DiscountAddedToCart = "dicount added to cart successfuly !",
 }
 export enum NotFoundMessage {
   ProductNotFound = "product not found !",
@@ -41,6 +42,11 @@ export enum BadRequestMessage {
   ProductColorOutOfStock = "this product color is out of stock !",
   ProductSizeOutOfStock = "this product size is out of stock !",
   ProductColorAndSizeNotAllowed = "product color or size not allowed for single product !",
+  DiscountCodeLimitReached = "discount code limit reached !",
+  DiscountCodeExpired = "discount code expired !",
+  ForbiddenProductDiscount = "you can only use this discount when related product is in cart !",
+  DiscountAlreadyInUse = "discout code is already in use !",
+  DiscountUsageLimitReached = "you can only use one public discount !",
 }
 
 export enum ConflictMessage {

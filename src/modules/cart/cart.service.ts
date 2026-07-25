@@ -16,6 +16,9 @@ import {
 import { ProductType } from "../product/enum/type.enum";
 import { ProductColorService } from "../product/service/product-color.service";
 import { ProductSizeService } from "../product/service/product-size.service";
+import { DiscountType } from "../discount/enum/type.enum";
+import { AddDiscountToCartDto } from "./dtos/dicount.dto";
+import { DiscountService } from "../discount/discount.service";
 
 @Injectable()
 export class CartService {
@@ -25,6 +28,7 @@ export class CartService {
     private productService: ProductService,
     private productColorService: ProductColorService,
     private productSizeService: ProductSizeService,
+    private discountService: DiscountService,
   ) {}
   async addProductToCart(cartDto: AddToCartDto) {
     const { productId, sizeId, colorId } = cartDto;
@@ -86,6 +90,8 @@ export class CartService {
           throw new BadRequestException(BadRequestMessage.ProductTypeInvalid);
       }
       cartObject.productId = productId;
+      // this is example : in real scenario get userId in req
+      cartObject.userId = 1;
       cartObject.count = 1;
       await this.cartRepository.insert(cartObject);
     }
@@ -100,6 +106,61 @@ export class CartService {
       await this.cartRepository.save(cartProduct);
     }
     return { message: PublicMessage.ProductRemovedFromCart };
+  }
+  async addDiscountToCart(discountDto: AddDiscountToCartDto) {
+    const userId = 1;
+    const { code } = discountDto;
+    const discount = (await this.discountService.findOneByCode(code, true))!;
+    if (
+      discount.limit &&
+      (discount.limit === 0 || discount.limit <= discount.usage)
+    ) {
+      throw new BadRequestException(BadRequestMessage.DiscountCodeLimitReached);
+    }
+    if (discount.expires_in && discount.expires_in < new Date()) {
+      throw new BadRequestException(BadRequestMessage.DiscountCodeExpired);
+    }
+    const existedDiscount = await this.cartRepository.findOneBy({
+      discountId: discount.id,
+    });
+    if (existedDiscount) {
+      throw new BadRequestException(BadRequestMessage.DiscountAlreadyInUse);
+    }
+    if (discount.type === DiscountType.Product) {
+      const discountedProducts = await this.cartRepository.findBy({
+        productId: discount.productId,
+      });
+      if (!discountedProducts) {
+        throw new BadRequestException(
+          BadRequestMessage.ForbiddenProductDiscount,
+        );
+      }
+      for (const item of discountedProducts) {
+        await this.cartRepository.update(
+          { id: item.id },
+          { discountId: discount.id },
+        );
+      }
+    }
+    if (discount.type === DiscountType.Cart) {
+      const existedPublicDiscount = await this.cartRepository.findOne({
+        relations: {
+          discount: true,
+        },
+        where: {
+          discount: {
+            type: DiscountType.Cart,
+          },
+        },
+      });
+      if (existedPublicDiscount) {
+        throw new BadRequestException(
+          BadRequestMessage.DiscountUsageLimitReached,
+        );
+      }
+      await this.cartRepository.update({ userId }, { discountId: discount.id });
+    }
+    return { message: PublicMessage.DiscountAddedToCart };
   }
   async findExistingProductInCart(
     productId: number,
