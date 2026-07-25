@@ -15,7 +15,7 @@ export class CartEntity extends BaseWithCreateDateEntity {
   @Column({ nullable: true })
   colorId: number;
   @Column({ nullable: true })
-  discountId: number;
+  discountId: number | null;
   @Column()
   userId: number;
   @Column()

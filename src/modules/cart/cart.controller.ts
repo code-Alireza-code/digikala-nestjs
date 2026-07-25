@@ -20,13 +20,18 @@ export class CartController {
   addToCart(@Body() cartDto: AddToCartDto) {
     return this.cartService.addProductToCart(cartDto);
   }
-  @Delete("/:productId")
-  removeFromCart(@Param("productId", ParseIntPipe) id: number) {
-    return this.cartService.removeProductFromCart(id);
-  }
   @Post("/add-discount")
   @StandardFormType()
   async addDiscountToCart(@Body() discountDto: AddDiscountToCartDto) {
     return this.cartService.addDiscountToCart(discountDto);
+  }
+  @Delete("/remove-discount")
+  @StandardFormType()
+  async removeDiscountFromCart(@Body() discountDto: AddDiscountToCartDto) {
+    return this.cartService.removeDiscountFromCart(discountDto);
+  }
+  @Delete("/:productId")
+  removeFromCart(@Param("productId", ParseIntPipe) id: number) {
+    return this.cartService.removeProductFromCart(id);
   }
 }

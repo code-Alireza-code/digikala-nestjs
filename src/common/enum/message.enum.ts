@@ -17,6 +17,7 @@ export enum PublicMessage {
   ProductAddedToCart = "product added to cart successfuly !",
   ProductRemovedFromCart = "product removed from cart successfuly !",
   DiscountAddedToCart = "dicount added to cart successfuly !",
+  DiscountRemovedFromCart = "discount removed from cart successfuly !",
 }
 export enum NotFoundMessage {
   ProductNotFound = "product not found !",
@@ -47,6 +48,7 @@ export enum BadRequestMessage {
   ForbiddenProductDiscount = "you can only use this discount when related product is in cart !",
   DiscountAlreadyInUse = "discout code is already in use !",
   DiscountUsageLimitReached = "you can only use one public discount !",
+  DiscountIsNotInCart = "discount is not in cart and can not be removed !",
 }
 
 export enum ConflictMessage {

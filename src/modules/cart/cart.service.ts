@@ -162,6 +162,20 @@ export class CartService {
     }
     return { message: PublicMessage.DiscountAddedToCart };
   }
+  async removeDiscountFromCart(discountDto: AddDiscountToCartDto) {
+    const { code } = discountDto;
+    const discount = (await this.discountService.findOneByCode(code, true))!;
+    const discountedProducts = await this.cartRepository.findBy({
+      discountId: discount.id,
+    });
+    if (!discountedProducts) {
+      throw new BadRequestException(BadRequestMessage.DiscountIsNotInCart);
+    }
+    for (const item of discountedProducts) {
+      await this.cartRepository.update({ id: item.id }, { discountId: null });
+    }
+    return { message: PublicMessage.DiscountRemovedFromCart };
+  }
   async findExistingProductInCart(
     productId: number,
     sizeId: number,
