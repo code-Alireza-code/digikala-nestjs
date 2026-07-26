@@ -5,4 +5,6 @@ export enum EntityNames {
   ProductDetail = "product_detail",
   Discount = "discount",
   Cart = "cart",
+  Order = "order",
+  OrderItems = "order_items",
 }

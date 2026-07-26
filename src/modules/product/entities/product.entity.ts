@@ -6,6 +6,7 @@ import { ProductDetailEntity } from "./product-detail.entity";
 import { ProductSizeEntity } from "./product-size.entity";
 import { ProductType } from "../enum/type.enum";
 import { CartEntity } from "@/modules/cart/entities/cart.entity";
+import { OrderItemsEntity } from "@/modules/order/entites/order-items.entity";
 
 @Entity(EntityNames.Product)
 export class ProductEntity extends BaseWithCreateDateEntity {
@@ -35,4 +36,7 @@ export class ProductEntity extends BaseWithCreateDateEntity {
   sizes: ProductSizeEntity[];
   @OneToMany(() => CartEntity, (cart) => cart.product)
   carts: CartEntity[];
+  @OneToMany(() => OrderItemsEntity, (order) => order.product)
+  orders: OrderItemsEntity[];
 }
+
