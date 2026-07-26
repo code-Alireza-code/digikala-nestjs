@@ -7,4 +7,5 @@ export enum EntityNames {
   Cart = "cart",
   Order = "order",
   OrderItems = "order_items",
+  Payment = "payment",
 }
