@@ -10,4 +10,5 @@ export type ProductItem = {
   colorId?: number;
   color_name?: string;
   color_code?: string;
+  count: number;
 };

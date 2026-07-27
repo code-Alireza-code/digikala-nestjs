@@ -12,8 +12,6 @@ export class OrderEntity extends BaseWithCreateDateEntity {
   @Column()
   address: string;
   @Column()
-  amount: number;
-  @Column()
   final_amount: number;
   @Column({ nullable: true })
   paymentId: number;

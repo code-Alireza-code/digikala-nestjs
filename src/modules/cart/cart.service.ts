@@ -105,6 +105,7 @@ export class CartService {
           active_discount: product.active_discount,
           discount: product.discount,
           price: product.price,
+          count,
         });
       } else if (product?.type === ProductType.Sizing) {
         totalPrice += +size.price;
@@ -157,6 +158,7 @@ export class CartService {
           sizeId: size.id,
           price: size.price,
           size: size.size,
+          count,
         });
       } else if (product?.type === ProductType.Coloring) {
         totalPrice += +color.price;
@@ -210,6 +212,7 @@ export class CartService {
           colorId: color.id,
           color_code: color.color_code,
           color_name: color.color_name,
+          count,
         });
       } else if (discount) {
         if (this.validateDiscount(discount)) {

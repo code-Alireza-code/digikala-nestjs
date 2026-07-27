@@ -18,6 +18,7 @@ export enum PublicMessage {
   ProductRemovedFromCart = "product removed from cart successfuly !",
   DiscountAddedToCart = "dicount added to cart successfuly !",
   DiscountRemovedFromCart = "discount removed from cart successfuly !",
+  OrderStatusChanged = "order status changed successfuly !",
 }
 export enum NotFoundMessage {
   ProductNotFound = "product not found !",
@@ -26,6 +27,8 @@ export enum NotFoundMessage {
   ProductColorNotFound = "product color not found !",
   DiscountNotFound = "discount not found !",
   ProductNotFoundInCart = "product not found in cart !",
+  PaymentNotFound = "payment not found !",
+  OrderNotFound = "order not found !",
 }
 export enum BadRequestMessage {
   ProductTypeInvalid = "product type is invalid !",
@@ -49,6 +52,13 @@ export enum BadRequestMessage {
   DiscountAlreadyInUse = "discout code is already in use !",
   DiscountUsageLimitReached = "you can only use one public discount !",
   DiscountIsNotInCart = "discount is not in cart and can not be removed !",
+  ZarinpalGatewayError = "something went wrong on zarinpal gateway, try again !",
+  PaymentAlreadyVerified = "payment already verified !",
+  OrderStatusNotOrdered = "order status should be in ordered status first !",
+  OrderStatusNotInProcess = "order status should be in in-process status first !",
+  OrderStatusNotPacked = "order status should be in packed status first !",
+  OrderStatusNotInTransit = "order status should be in in-transit status first !",
+  OrderCanNotCanceled = "order status can not be canceled after in-transit status !",
 }
 
 export enum ConflictMessage {
@@ -56,4 +66,8 @@ export enum ConflictMessage {
   ProductSizeAlreadyExist = "product size with this size already exists !",
   ProductColorAlreadyExist = "product color with this color already exists !",
   DiscountCodeAlreadyExist = "discount with this code is already exists !",
+}
+
+export enum InternalServerErrorMessage {
+  ZarinpalRequestFailed = "zarinpal request failed, try again !",
 }
